@@ -4,3 +4,4 @@
     & "$PSScriptRoot\installWingetApps.ps1"
     & "$PSScriptRoot\installChoco.ps1"
     & "$PSScriptRoot\installChocoApps.ps1"
+    & "$PSScriptRoot\sshkeygen.ps1"
