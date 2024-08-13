@@ -1,0 +1,14 @@
+winget install -e --id Unity.UnityHub
+winget install -e --id Google.Chrome
+winget install -e --id Microsoft.VisualStudioCode
+winget install -e --id Notepad++.Notepad++
+winget install -e --id Git.Git
+winget install -e --id JetBrains.IntelliJIDEA.Ultimate
+winget install -e --id JetBrains.Toolbox
+winget install -e --id Neovim.Neovim
+winget install -e --id lars-berger.GlazeWM
+winget install -e --id 7zip.7zip
+winget install -e --id Lexikos.AutoHotkey
+winget install -e --id Insomnia.Insomnia
+winget install -e --id VideoLAN.VLC
+winget install -e --id WiresharkFoundation.Wireshark
