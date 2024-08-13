@@ -29,4 +29,6 @@ if (!(Get-Command "winget" -ErrorAction SilentlyContinue)) {
     Write-Host "winget is already installed."
 }
 
+winget source add -n winget2 -a https://cdn.winget.microsoft.com/cache
+
 winget upgrade --id Microsoft.Winget.Source
