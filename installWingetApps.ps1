@@ -12,3 +12,6 @@ winget install -e --id Lexikos.AutoHotkey
 winget install -e --id Insomnia.Insomnia
 winget install -e --id VideoLAN.VLC
 winget install -e --id WiresharkFoundation.Wireshark
+winget install -e --id Inkscape.Inkscape
+winget install -e --id dotPDNLLC.paintdotnet
+winget install -e --id GIMP.GIMP
