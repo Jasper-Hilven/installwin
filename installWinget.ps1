@@ -28,3 +28,5 @@ if (!(Get-Command "winget" -ErrorAction SilentlyContinue)) {
 } else {
     Write-Host "winget is already installed."
 }
+
+winget upgrade --id Microsoft.Winget.Source
