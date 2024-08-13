@@ -16,3 +16,4 @@ winget install -e --id Inkscape.Inkscape
 winget install -e --id dotPDNLLC.paintdotnet
 winget install -e --id GIMP.GIMP
 winget install -e --id Discord.Discord
+winget install -e --id BlenderFoundation.Blender
