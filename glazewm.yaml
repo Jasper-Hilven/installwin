@@ -1,0 +1,251 @@
+general:
+  # Commands to run when the WM has started (e.g. to run a script or launch
+  # another application). Here we are running a batch script to start Zebar.
+  startup_commands: ['shell-exec %userprofile%/.glzr/zebar/start.bat']
+
+  # Whether to automatically focus windows underneath the cursor.
+  focus_follows_cursor: false
+
+  # Whether to switch back and forth between the previously focused
+  # workspace when focusing the current workspace.
+  toggle_workspace_on_refocus: false
+
+  cursor_jump:
+    # Whether to automatically move the cursor on the specified trigger.
+    enabled: true
+
+    # Trigger for cursor jump:
+    # - 'monitor_focus': Jump when focus changes between monitors.
+    # - 'window_focus': Jump when focus changes between windows.
+    trigger: 'window_focus'
+gaps:
+  # Gap between adjacent windows.
+  inner_gap: '1px'
+
+  # Gap between windows and the screen edge.
+  outer_gap:
+    top: '40px'
+    right: '0px'
+    bottom: '0px'
+    left: '0px'
+
+window_effects:
+  # Visual effects to apply to the focused window.
+  focused_window:
+    # Highlight the window with a colored border.
+    # ** Exclusive to Windows 11 due to API limitations.
+    border:
+      enabled: true
+      color: '#8dbcff'
+
+  # Visual effects to apply to non-focused windows.
+  other_windows:
+    border:
+      enabled: true
+      color: '#a1a1a1'
+
+window_behavior:
+  # New windows are created in this state whenever possible.
+  # Allowed values: 'tiling', 'floating'.
+  initial_state: 'tiling'
+
+  # Sets the default options for when a new window is created. This also
+  # changes the defaults for when the state change commands, like
+  # `set-floating`, are used without any flags.
+  state_defaults:
+    floating:
+      # Whether to center floating windows by default.
+      centered: true
+
+      # Whether to show floating windows as always on top.
+      shown_on_top: false
+
+    fullscreen:
+      # Maximize the window if possible. If the window doesn't have a
+      # maximize button, then it'll be fullscreen'ed normally instead.
+      maximized: false
+
+      # Whether to show fullscreen windows as always on top.
+      shown_on_top: false
+
+workspaces:
+  - name: '5'
+    display_name: "messaging 5"
+  - name: '6'
+    display_name: "ide 6"
+  - name: '7'
+    display_name: "info 7"
+  - name: '8'
+    display_name: "vsc 8"
+  - name: '9'
+    display_name: "uni 9"
+  - name: '10'
+    display_name: "uni ed 10"
+  - name: '11'
+    display_name: 'var 11'
+  - name: '12'
+    display_name: 'media 12'
+
+window_rules:
+  - commands: ['ignore']
+    match:
+      # Ignores any Zebar windows.
+      - window_process: { equals: 'zebar' }
+
+      # Ignores picture-in-picture windows for browsers.
+      - window_title: { regex: '[Pp]icture.in.[Pp]icture' }
+        window_class: { regex: 'Chrome_WidgetWin_1|MozillaDialogClass' }
+
+      # Ignore rules for various 3rd-party apps.
+      - window_process: { equals: 'PowerToys.PowerAccent' }
+      - window_process: { equals: 'Lively' }
+        window_class: { regex: 'HwndWrapper*' }
+  - commands: ['set-floating']
+    match:
+      - window_title: { equals: "Task Manager"}
+binding_modes:
+  # When enabled, all keybindings are disabled except for ralt+Shift+p which
+  # returns to default keybindings.
+  - name: 'pause'
+    keybindings:
+      - commands: ['wm-disable-binding-mode --name pause']
+        bindings: ['LWin+Alt+e']
+
+keybindings:
+  # Shift focus in a given direction.
+  - commands: ['focus --direction left']
+    bindings: ['LWin+Alt+Ctrl+j']
+  - commands: ['focus --direction right']
+    bindings: ['LWin+Alt+Ctrl+l']
+  - commands: ['focus --direction up']
+    bindings: ['LWin+Alt+Ctrl+i']
+  - commands: ['focus --direction down']
+    bindings: ['LWin+Alt+Ctrl+k']
+
+  # Move focused window in a given direction.
+  - commands: ['move --direction left']
+    bindings: ['LWin+Alt+Ctrl+Shift+j']
+  - commands: ['move --direction right']
+    bindings: ['LWin+Alt+Ctrl+Shift+l']
+  - commands: ['move --direction up']
+    bindings: ['LWin+Alt+Ctrl+Shift+i']
+  - commands: ['move --direction down']
+    bindings: ['LWin+Alt+Ctrl+Shift+k']
+
+  # Resize focused window by a percentage or pixel amount.
+  - commands: ['resize --width -2%']
+    bindings: ['LWin+Alt+Ctrl+Left']
+  - commands: ['resize --width +2%']
+    bindings: ['LWin+Alt+Ctrl+Right']
+  - commands: ['resize --height +2%']
+    bindings: ['LWin+Alt+Ctrl+Up']
+  - commands: ['resize --height -2%']
+    bindings: ['LWin+Alt+Ctrl+Down']
+
+  # Disables all keybindings until ralt+Shift+p is pressed again.
+  - commands: ['wm-enable-binding-mode --name pause']
+    bindings: ['LWin+Alt+e']
+
+  # Change tiling direction. This determines where new tiling windows will
+  # be inserted.
+  - commands: ['toggle-tiling-direction']
+    bindings: ['LWin+Alt+Shift+e']
+
+  # Change focus from tiling windows -> floating -> fullscreen.
+  - commands: ['wm-cycle-focus']
+    bindings: ['LWin+Alt+space']
+
+  # Change the focused window to be floating.
+  - commands: ['toggle-floating --centered']
+    bindings: ['LWin+Alt+h']
+
+  # Change the focused window to be tiling.
+  - commands: ['toggle-tiling']
+    bindings: ['LWin+Alt+Ctrl+h']
+
+  # Change the focused window to be fullscreen.
+  - commands: ['toggle-fullscreen']
+    bindings: ['LWin+Alt+Ctrl+Shift+h']
+
+  # Minimize focused window.k
+  - commands: ['toggle-minimized']
+    bindings: ['LWin+Alt+y']
+
+  # Close focused window.
+  - commands: ['close']
+    bindings: ['LWin+Alt+Shift+y']
+
+  # Kill GlazeWM process safely.
+  - commands: ['wm-exit']
+    bindings: ['LWin+Alt+Shift+Ctrl+c']
+
+  # Re-evaluate configuration file.
+  - commands: ['wm-reload-config']
+    bindings: ['LWin+Alt+Shift+c']
+
+  # Redraw all windows.
+  - commands: ['wm-redraw']
+    bindings: ['LWin+Alt+c']
+
+  # Launch CMD terminal. ralt+ctrlernatively, use `shell-exec wt` or
+  # `shell-exec %ProgramFiles%/Git/git-bash.exe` to start Windows
+  # Terminal and Git Bash respectively.
+  - commands: ['shell-exec cmd']
+    bindings: ['LWin+Alt+enter']
+
+  # Focus the next/previous workspace defined in `workspaces` config.
+  - commands: ['focus --next-workspace']
+    bindings: ['LWin+Alt+f']
+  - commands: ['focus --prev-workspace']
+    bindings: ['LWin+Alt+ctrl+f']
+
+  # Focus the workspace that last had focus.
+  - commands: ['focus --recent-workspace']
+    bindings: ['LWin+Alt+d']
+
+  # Change focus to a workspace defined in `workspaces` config.
+  - commands: ['focus --workspace 5']
+    bindings: ['LWin+Alt+j']
+  - commands: ['focus --workspace 6']
+    bindings: ['LWin+Alt+k']
+  - commands: ['focus --workspace 7']
+    bindings: ['LWin+Alt+l']
+  - commands: ['focus --workspace 8']
+    bindings: ['LWin+Alt+m']
+  - commands: ['focus --workspace 9']
+    bindings: ['LWin+Alt+u']
+  - commands: ['focus --workspace 10']
+    bindings: ['LWin+Alt+i']
+  - commands: ['focus --workspace 11']
+    bindings: ['LWin+Alt+o']
+  - commands: ['focus --workspace 12']
+    bindings: ['LWin+Alt+p']
+  
+  # Move the focused window's parent workspace to a monitor in a given
+  # direction.
+  - commands: ['move-workspace --direction left']
+    bindings: ['LWin+Shift+Alt+Ctrl+Left']
+  - commands: ['move-workspace --direction right']
+    bindings: ['LWin+Shift+Alt+Ctrl+Right']
+  - commands: ['move-workspace --direction up']
+    bindings: ['LWin+Shift+Alt+Ctrl+Up']
+  - commands: ['move-workspace --direction down']
+    bindings: ['LWin+Shift+Alt+Ctrl+Down']
+
+  # Move focused window to a workspace defined in `workspaces` config.
+  - commands: ['move --workspace 5', 'focus --workspace 5']
+    bindings: ['LWin+Alt+Shift+j']
+  - commands: ['move --workspace 6', 'focus --workspace 6']
+    bindings: ['LWin+Alt+Shift+k']
+  - commands: ['move --workspace 7', 'focus --workspace 7']
+    bindings: ['LWin+Alt+Shift+l']
+  - commands: ['move --workspace 8', 'focus --workspace 8']
+    bindings: ['LWin+Alt+Shift+m']
+  - commands: ['move --workspace 9', 'focus --workspace 9']
+    bindings: ['LWin+Alt+Shift+u']
+  - commands: ['move --workspace 10', 'focus --workspace 10']
+    bindings: ['LWin+Alt+Shift+i']
+  - commands: ['move --workspace 11', 'focus --workspace 11']
+    bindings: ['LWin+Alt+Shift+o']
+  - commands: ['move --workspace 12', 'focus --workspace 12']
+    bindings: ['LWin+Alt+Shift+p']
